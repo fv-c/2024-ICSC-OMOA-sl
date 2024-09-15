@@ -1,0 +1,404 @@
+/* Stile footer */
+
+#my-footer {
+  position: absolute;
+  /* Sit on top of the page content */
+  width: 28%;
+  /* Full width (cover the whole page) */
+  height: 12vh;
+  /* Full height (cover the whole page) */
+  ;
+  top: 0vh;
+  left: 0vh;
+  /* background: radial-gradient(farthest-corner at 0px 0px, rgb(0, 177, 222), 5%, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)); */
+  /* border: 0.1rem solid; */
+  z-index: 2;
+  /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer;
+  /* Add a pointer on hover */
+}
+
+#my-footer #text {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  justify-content: flex-start;
+  margin: 0;
+  height: 100%;
+  bottom: 0%;
+  left: 3%;
+  font-size: 14px;
+  color: rgb(0, 0, 0);
+  /* -ms-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%); */
+}
+
+#my-footer #text p {
+  margin: 0
+}
+
+#my-footer #text hr {
+  margin: 10px 0 0 0;
+  border: 0;
+  width: 105%;
+  height: 3px;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.inizio #my-footer {
+  opacity: 0;
+}
+
+.has-dark-background #comp {
+  color: rgb(255, 255, 255);
+  text-shadow: none;
+}
+
+.has-dark-background #tit {
+  color: rgb(255, 255, 255);
+  text-shadow: none;
+}
+
+.has-dark-background #geo {
+  color: rgb(255, 255, 255);
+  text-shadow: none;
+}
+
+/* Stile orologio ---------------------------------------------- */
+
+#clock {
+  position: absolute;
+  font: Helvetica, sans-serif;
+  font-size: 14px;
+  text-align: right;
+  width: 97%;
+  margin-top: 10px;
+  color: rgb(0, 0, 0);
+  border-right: 3px solid #ed1f24;
+  padding: 10px;
+  z-index: 2;
+}
+
+.inizio #clock {
+  opacity: 0;
+}
+
+.downArrow {
+  position: abolute;
+  bottom: 45%;
+  left: 50%;
+}
+
+.bounce {
+  -moz-animation: bounce 3s infinite;
+  -webkit-animation: bounce 3s infinite;
+  animation: bounce 3s infinite;
+}
+
+@-moz-keyframes bounce {
+
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    -moz-transform: translateY(0);
+    transform: translateY(0);
+  }
+
+  40% {
+    -moz-transform: translateY(-30px);
+    transform: translateY(-30px);
+  }
+
+  60% {
+    -moz-transform: translateY(-15px);
+    transform: translateY(-15px);
+  }
+}
+
+@-webkit-keyframes bounce {
+
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+
+  40% {
+    -webkit-transform: translateY(-30px);
+    transform: translateY(-30px);
+  }
+
+  60% {
+    -webkit-transform: translateY(-15px);
+    transform: translateY(-15px);
+  }
+}
+
+@keyframes bounce {
+
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+
+  40% {
+    -moz-transform: translateY(-30px);
+    -ms-transform: translateY(-30px);
+    -webkit-transform: translateY(-30px);
+    transform: translateY(-30px);
+  }
+
+  60% {
+    -moz-transform: translateY(-15px);
+    -ms-transform: translateY(-15px);
+    -webkit-transform: translateY(-15px);
+    transform: translateY(-15px);
+  }
+}
+
+
+.fragment.blur {
+  filter: blur(5px);
+}
+
+.fragment.blur.visible {
+  filter: none;
+}
+
+:root {
+  --border: 7px;
+  --color1: #6be89b;
+  --color2: #0076a5;
+  --from: 30deg;
+  --distance: 46%;
+}
+
+.definizione {
+  font-size: 25px;
+  display: inline-block;
+  background-color: rgba(238, 250, 226, 0.79);
+  margin: auto;
+  width: 50%;
+  border: 1px solid rgb(4, 83, 41);
+  border-radius: 6px;
+  -webkit-box-shadow: 7px 5px 23px 7px rgba(0, 0, 0, 0.36);
+  box-shadow: 7px 5px 23px 7px rgba(0, 0, 0, 0.36);
+}
+
+.definizione:before {
+  content: "Definizione";
+  display: block;
+  width: fit-content;
+  font-size: 15px;
+  font-style: italic;
+  letter-spacing: 1px;
+  padding: 5px 10px;
+  margin: 0 0 0 0;
+  line-height: 24px;
+}
+
+.definizione-scarsa {
+  font-size: 25px;
+  display: inline-block;
+  background-color: rgba(255, 244, 165, 0.79);
+  margin: auto;
+  width: 50%;
+  border: 1px solid rgb(167, 85, 3);
+  border-radius: 6px;
+  -webkit-box-shadow: 7px 5px 23px 7px rgba(0, 0, 0, 0.36);
+  box-shadow: 7px 5px 23px 7px rgba(0, 0, 0, 0.36);
+}
+
+.definizione-scarsa:before {
+  content: "Definizione";
+  display: block;
+  width: fit-content;
+  font-size: 15px;
+  font-style: italic;
+  letter-spacing: 1px;
+  padding: 5px 10px;
+  margin: 0 0 0 0;
+  line-height: 24px;
+}
+
+blockquote {
+  background: #628c77 !important;
+  color: white;
+  border-left: 10px solid #014b31;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  quotes: "\201C" "\201D" "\201C" "\201D";
+  text-justify: inter-word;
+  border-radius: 7px;
+}
+
+blockquote:before {
+  color: #ffffff;
+  content: open-quote;
+  font-size: 4em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.45em;
+}
+
+blockquote p {
+  display: inline;
+}
+
+#todo {
+  position: fixed;
+  /* Sit on top of the page content */
+  display: none;
+  /* Hidden by default */
+  width: 100%;
+  /* Full width (cover the whole page) */
+  height: 100%;
+  /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Black background with opacity */
+  z-index: 2;
+  /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer;
+  /* Add a pointer on hover */
+
+}
+
+#todo p {
+  background-color: rgb(255, 249, 240);
+  display: block;
+  width: 25%;
+  color: rgb(0, 0, 0);
+  font-size: 30px;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+/*DETAILS*/
+
+.details-container {
+  height: 10vw !important;
+  margin: 30px auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: stretch;
+  align-content: space-around;
+  gap: 10px;
+
+}
+
+details>summary {
+  margin: auto;
+  padding: 14px;
+  width: 300px;
+  background-color: #fafafabf;
+  border: 1px solid black;
+  border-radius: 10px;
+  box-shadow: 4px 4px 9px #bbbbbb;
+  cursor: pointer;
+  text-align: center;
+
+  font-size: 20pt;
+}
+
+details>p {
+  background-color: #fafafabf;
+  padding: 8px;
+  margin: 0;
+  border-radius: 10px;
+  box-shadow: 4px 4px 9px #bbbbbb;
+  font-size: 20pt;
+  text-align: justify;
+}
+
+details[open]>summary {
+  background-color: #ccfec3aa;
+}
+
+/* GRAZIE PER L'ATTENZIONE */
+
+.ga-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: stretch;
+  align-content: space-around;
+  gap: 10px;
+}
+
+.ga {
+  display: block;
+  margin: 100px auto auto auto;
+}
+
+.notizie {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: stretch;
+  align-content: space-around;
+  gap: 2px;
+}
+
+.notizie-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: stretch;
+  align-content: space-around;
+  gap: 1px;
+}
+
+.notizie-img {
+  flex-grow: 1;
+  margin: 1px 30px auto auto;
+}
+
+.notizie-cv {
+  flex-grow: 4;
+  margin: 1px 30px auto auto;
+}

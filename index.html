@@ -1,0 +1,759 @@
+<!doctype html>
+<html lang="it">
+
+<head>
+	<meta charset="utf-8">
+
+	<title>Opening mind by opening architecture: analysis strategies</title>
+	<meta name="description" content="Presentation in support of Francesco Vitucci's talk at the ICSC 2024 conference">
+	<meta name="author" content="Francesco Vitucci">
+
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="dist/reset.css">
+	<link rel="stylesheet" href="dist/reveal.css">
+	<link rel="stylesheet" href="dist/theme/personale.css">
+	<link rel="stylesheet" href="css/aggiuntivo.css">
+	<link rel="stylesheet" href="css/timeline.css">
+
+	<script src="js/highlight.min.js"></script>
+	<!-- <script src="plugin/highlight/highlight.js"></script> -->
+
+	<script src="js/csound-highlight.js"></script>
+
+	<!-- Theme used for syntax highlighted code -->
+	<link rel="stylesheet" href="css/hljs-csound.css"">
+</head>
+
+<body>
+	<!-- <div id="todo">
+		<p>Da fare<br>
+			Empty
+		</p>
+	</div> -->
+	<div class="reveal">
+		<div class="slides">
+			<section data-state="inizio" data-background-color="black" data-transition="fade-out">
+				<h4 style="font-size: 30px; margin: 10px;">Francesco Vitucci, Giuseppe Silvi, Daniele Giuseppe Annese,</h4>
+				<h4 style="font-size: 30px; margin: 10px;"> Francesco Scagliola and Anthony Di Furia</h4>
+				<hr style="width: 50%">
+				<h3>Opening mind by opening architecture:</h3>
+				<h3>analysis strategies</h3>
+				<hr style="width: 50%">
+				<p style="font-size: 40px">7<sup>th</sup> International Csound Conference – ICSC2024</p>
+			</section>
+
+			<section data-transition="fade-in fade-out">
+				<p><b>View the slides on your device</b></p>
+				<div><img style="width: 31%;" src="img/qr-code.png" /></div>
+				<p style="font-family: monospace;">xxxxxx</p>
+			</section>
+
+			<!-- <section>
+				<pre class="csound">
+					<code data-trim data-noescape>
+						;--------PAR FDL--------------------------------------------------
+						opcode PAR_FDL_SCH, a, ai[]i[]iii
+						  aPulse, iTfdl[], iGfdl[], iSR, iN, icnt  xin
+							icnt  =  icnt + 1
+							aFDL = FDL_SCH(aPulse, iTfdl[icnt - 1], iGfdl[icnt - 1], iSR)
+							aMix init 0
+							if icnt < iN then
+							  aMix PAR_FDL_SCH aPulse, iTfdl, iGfdl, iSR, iN, icnt
+							endif
+							xout aMix + aFDL
+						endop
+					</code>
+				</pre>
+			</section> -->
+
+			<section data-transition="fade-in slide-out">
+				<section>
+					<h2>Foreword</h2>
+					<div class="downArrow bounce">
+						<img width="40" height="40" alt=""
+							src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDMyIDMyIiBoZWlnaHQ9IjMycHgiIGlkPSLQodC70L7QuV8xIiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMycHgiIHhtbDpzcGFjZT0icHJlc2VydmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxwYXRoIGQ9Ik0yNC4yODUsMTEuMjg0TDE2LDE5LjU3MWwtOC4yODUtOC4yODhjLTAuMzk1LTAuMzk1LTEuMDM0LTAuMzk1LTEuNDI5LDAgIGMtMC4zOTQsMC4zOTUtMC4zOTQsMS4wMzUsMCwxLjQzbDguOTk5LDkuMDAybDAsMGwwLDBjMC4zOTQsMC4zOTUsMS4wMzQsMC4zOTUsMS40MjgsMGw4Ljk5OS05LjAwMiAgYzAuMzk0LTAuMzk1LDAuMzk0LTEuMDM2LDAtMS40MzFDMjUuMzE5LDEwLjg4OSwyNC42NzksMTAuODg5LDI0LjI4NSwxMS4yODR6IiBmaWxsPSIjMTIxMzEzIiBpZD0iRXhwYW5kX01vcmUiLz48Zy8+PGcvPjxnLz48Zy8+PGcvPjxnLz48L3N2Zz4=" />
+					</div>
+				</section>
+
+				<section>
+					<h3>About the Reverberators project (1)</h3>
+					<p style="text-align: left; margin: 20px;">The <a href="https://github.com/s-e-a-m/faust-libraries/blob/master/src/seam.schroeder.lib" target="_blank">Reverberators project</a> was born in the educational context of the “N. Piccinni” Conservatory of Bari (IT).</p>
+					<p style="text-align: left; margin: 20px;">The starting point was identified in Manfred Schroeder's literary works on the creation of artificial reverberations with qualities similar to natural ones. <a href="#/7/1">[1, 2]</a></p>
+				</section>
+
+				<section>
+					<h3>About the Reverberators project (2)</h3>
+					<p style="text-align: left; margin: 20px;">Those works reports reverberator's block diagrams and <b>impulse response</b> (IR).</p>
+					<p style="text-align: left; margin: 20px;">The project was therefore a path of reconstruction and conscious implementation <a href="#/7/1">[3]</a> of historical reverberators, with a strong view to their creative expansion.</p>
+				</section>
+
+				<section>
+					<h3>Why Faust (Functional Audio Stream) initially?</h3>
+					<div style="text-align: left; margin: 20px;">
+						<ul>
+							<li class="fragment">text-based programming language</li>
+							<li class="fragment">highest level functions are implemented using the same language<br><small>(up to the basic “primitive” components)</small></li>
+							<li class="fragment">it has tools to analyze sample-by-sample and visualize block diagrams</li>
+						</ul>
+					</div>
+				</section>
+
+				<section>
+					<h3>Why analysis tools?</h3>
+					<p style="text-align: left; margin: 20px;">
+						Faust's analytical ability had allowed us to adopt a series 
+						of compensation strategies for the delay samples that did 
+						not emerge from the block diagram reported in the literature. <br>
+						This was possible by analyzing the IR of our processors, 
+						comparing it with the one present in the papers, making 
+						the analytical tool essential for an in-depth understanding 
+						of the reconstruction process.
+					</p>
+				</section>
+			</section>
+
+			<section data-transition="fade-in slide-out">
+				<section>
+					<h2>Csound porting</h2>
+					<div class="downArrow bounce">
+						<img width="40" height="40" alt=""
+							src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDMyIDMyIiBoZWlnaHQ9IjMycHgiIGlkPSLQodC70L7QuV8xIiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMycHgiIHhtbDpzcGFjZT0icHJlc2VydmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxwYXRoIGQ9Ik0yNC4yODUsMTEuMjg0TDE2LDE5LjU3MWwtOC4yODUtOC4yODhjLTAuMzk1LTAuMzk1LTEuMDM0LTAuMzk1LTEuNDI5LDAgIGMtMC4zOTQsMC4zOTUtMC4zOTQsMS4wMzUsMCwxLjQzbDguOTk5LDkuMDAybDAsMGwwLDBjMC4zOTQsMC4zOTUsMS4wMzQsMC4zOTUsMS40MjgsMGw4Ljk5OS05LjAwMiAgYzAuMzk0LTAuMzk1LDAuMzk0LTEuMDM2LDAtMS40MzFDMjUuMzE5LDEwLjg4OSwyNC42NzksMTAuODg5LDI0LjI4NSwxMS4yODR6IiBmaWxsPSIjMTIxMzEzIiBpZD0iRXhwYW5kX01vcmUiLz48Zy8+PGcvPjxnLz48Zy8+PGcvPjxnLz48L3N2Zz4=" />
+					</div>
+				</section>
+
+				<section>
+					<h3>Educational motivations</h3>
+					<p style="text-align: left; margin: 20px;">
+						Csound has many affinities with Faust: it is a text-based 
+						system, which allows for careful analysis of the flow of 
+						operations on samples; furthermore the definition of functions 
+						(user defined opcodes) can be done using the csound language 
+						itself. <br>Another detail is that the Csound language 
+						has long been an integral part of our school's teaching.
+					</p>
+				</section>
+
+				<section>
+					<h3>Creating the analysis tool</h3>
+
+				</section>
+
+				<section>
+					<h3>Creative opening: par & seq</h3>
+				</section>
+			</section>
+
+			<section data-transition="fade-in slide-out">
+				<section>
+					<h2>Repository</h2>
+					<div class="downArrow bounce">
+						<img width="40" height="40" alt=""
+							src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDMyIDMyIiBoZWlnaHQ9IjMycHgiIGlkPSLQodC70L7QuV8xIiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMycHgiIHhtbDpzcGFjZT0icHJlc2VydmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxwYXRoIGQ9Ik0yNC4yODUsMTEuMjg0TDE2LDE5LjU3MWwtOC4yODUtOC4yODhjLTAuMzk1LTAuMzk1LTEuMDM0LTAuMzk1LTEuNDI5LDAgIGMtMC4zOTQsMC4zOTUtMC4zOTQsMS4wMzUsMCwxLjQzbDguOTk5LDkuMDAybDAsMGwwLDBjMC4zOTQsMC4zOTUsMS4wMzQsMC4zOTUsMS40MjgsMGw4Ljk5OS05LjAwMiAgYzAuMzk0LTAuMzk1LDAuMzk0LTEuMDM2LDAtMS40MzFDMjUuMzE5LDEwLjg4OSwyNC42NzksMTAuODg5LDI0LjI4NSwxMS4yODR6IiBmaWxsPSIjMTIxMzEzIiBpZD0iRXhwYW5kX01vcmUiLz48Zy8+PGcvPjxnLz48Zy8+PGcvPjxnLz48L3N2Zz4=" />
+					</div>
+				</section>
+
+				<section>
+					<h3>...</h3>
+				</section>
+			</section>
+
+			<section data-transition="fade-in slide-out">
+				<section>
+					<h2>Future directions</h2>
+					<div class="downArrow bounce">
+						<img width="40" height="40" alt=""
+							src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDMyIDMyIiBoZWlnaHQ9IjMycHgiIGlkPSLQodC70L7QuV8xIiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMycHgiIHhtbDpzcGFjZT0icHJlc2VydmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxwYXRoIGQ9Ik0yNC4yODUsMTEuMjg0TDE2LDE5LjU3MWwtOC4yODUtOC4yODhjLTAuMzk1LTAuMzk1LTEuMDM0LTAuMzk1LTEuNDI5LDAgIGMtMC4zOTQsMC4zOTUtMC4zOTQsMS4wMzUsMCwxLjQzbDguOTk5LDkuMDAybDAsMGwwLDBjMC4zOTQsMC4zOTUsMS4wMzQsMC4zOTUsMS40MjgsMGw4Ljk5OS05LjAwMiAgYzAuMzk0LTAuMzk1LDAuMzk0LTEuMDM2LDAtMS40MzFDMjUuMzE5LDEwLjg4OSwyNC42NzksMTAuODg5LDI0LjI4NSwxMS4yODR6IiBmaWxsPSIjMTIxMzEzIiBpZD0iRXhwYW5kX01vcmUiLz48Zy8+PGcvPjxnLz48Zy8+PGcvPjxnLz48L3N2Zz4=" />
+					</div>
+				</section>
+
+				<section>
+					<h3>...</h3>
+				</section>
+			</section>
+
+			
+
+			<!-- <section data-transition="fade-in slide-out">
+				<section>
+					<h2>Introduzione alla ricerca</h2>
+					<div class="downArrow bounce">
+						<img width="40" height="40" alt=""
+							src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDMyIDMyIiBoZWlnaHQ9IjMycHgiIGlkPSLQodC70L7QuV8xIiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMycHgiIHhtbDpzcGFjZT0icHJlc2VydmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxwYXRoIGQ9Ik0yNC4yODUsMTEuMjg0TDE2LDE5LjU3MWwtOC4yODUtOC4yODhjLTAuMzk1LTAuMzk1LTEuMDM0LTAuMzk1LTEuNDI5LDAgIGMtMC4zOTQsMC4zOTUtMC4zOTQsMS4wMzUsMCwxLjQzbDguOTk5LDkuMDAybDAsMGwwLDBjMC4zOTQsMC4zOTUsMS4wMzQsMC4zOTUsMS40MjgsMGw4Ljk5OS05LjAwMiAgYzAuMzk0LTAuMzk1LDAuMzk0LTEuMDM2LDAtMS40MzFDMjUuMzE5LDEwLjg4OSwyNC42NzksMTAuODg5LDI0LjI4NSwxMS4yODR6IiBmaWxsPSIjMTIxMzEzIiBpZD0iRXhwYW5kX01vcmUiLz48Zy8+PGcvPjxnLz48Zy8+PGcvPjxnLz48L3N2Zz4=" />
+					</div>
+				</section>
+				<section>
+					<h3>Un punto di partenza</h3>
+					<p style="margin: 15px">Un lavoro di <em>trascrizione</em> di un brano musicale, mediante un <em>adattamento</em>
+						dell'organico, necessita, da parte del trascrittore, una piena consapevolezza del processo.
+						In caso contrario, esso può assumere una connotazione distruttiva in confronto alle intenzioni
+						originali del compositore.<br>
+						Risulta dunque necessario comprendere queste intenzioni, così come il contesto in cui egli ha
+						operato.
+					</p>
+				</section>
+				<section>
+					Innanzitutto si procede con l'esame<br>della lettera riportata in partitura.
+					<img class="r-frame" style="display: block; margin-left: auto; margin-right: auto; width: 40%;"
+						src="img/intro.png">
+				</section>
+				<section>
+					Si rintracciano, successivamente, eventuali pezzi di letteratura scientifica musicologica in cui compare una
+					citazione del brano in questione.
+					<blockquote style="background: #507563; color: white;font-size: 22px; text-align: justify;">
+						Una chiave d'accesso alla comprensione del senso e dell'eventuale simbolismo cristologico in
+						essa racchiuso ci è fornito da una lettera, densa di istruzioni, acclusa alla partitura per il
+						clavicembalo delle Lamentazioni a sei voci di Antonio Mogavero, edite a Venezia nel 1623 (Tab.
+						B). Fedele alla più genuina pratica timbrica delle Tenebre, la strumentazione predisposta da
+						Mogavero, comprendente ben sei viole da gamba (una per ogni voce) e una tiorba, oltre a un
+						clavicembalo, sembra tender - come il compositore stesso ripetutamente afferma nella premessa al
+						«pio ac benevolo lectori» (doc. 32) - a un unico obiettivo: la suavitas. Una sonorità velata,
+						delicata e fusa cui solo i predetti strumenti possono provvedere, al punto che, con paradossale
+						rovesciamento di una regola di concertazione e di un principio estetico all'epoca universalmente
+						accettati, si raccomanda che il clamore delle voci umane («Stridor»), da affidarsi a sei
+						espertissimi cantori, non debba in nessun modo distur bare la soavità («suavitas») degli
+						strumenti musicali.<br>
+						<span
+							style="width: 50%; float: right; text-align: right; font-size: medium; padding: 0px; font-style: normal !important;">
+							<span style="text-transform: uppercase;">Baroncini Rodolfo</span>, <em>L'ufficio delle
+								Tenebre: pratiche sonore della settimana santa nell'Italia settentrionale
+								tra Cinque e Seicento</em><br>in <em>Recercare</em>, vol. 17, 2005, pp. 71–134.
+
+						</span>
+						<br>
+						<br>
+						<br>
+					</blockquote>
+				</section>
+				<section>
+					Si ricercano informazioni nella letteratura secondaria,<br>come le Enciclopedie.
+					<img class="r-frame" src="img/mogavero-grove.png"
+						style="display: block; margin-left: auto; margin-right: auto; width: 60%;">
+				</section>
+				<section>
+					<p style="font-size: 30pt;">Naturalmente, tutto questo avviene in parallelo<br>allo studio della
+						<b>partitura</b>, affrontando
+						la decifrazione<br>di una scrittura musicale simile, ma differente rispetto a
+						quella
+						attuale.
+					</p>
+					<img class="r-frame" src="img/mogavero-score.png"
+						style="display: block; margin-left: auto; margin-right: auto; width: 40%;">
+				</section>
+			</section>
+
+			<section>
+				<section>
+					<h2>Concetti musicali - Un breve compendio</h2>
+					<p class="fragment blur" style="font-size: 30px;"><em>(solo alcuni!)</em></h4>
+					<div class="downArrow bounce">
+						<img width="40" height="40" alt=""
+							src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDMyIDMyIiBoZWlnaHQ9IjMycHgiIGlkPSLQodC70L7QuV8xIiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMycHgiIHhtbDpzcGFjZT0icHJlc2VydmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxwYXRoIGQ9Ik0yNC4yODUsMTEuMjg0TDE2LDE5LjU3MWwtOC4yODUtOC4yODhjLTAuMzk1LTAuMzk1LTEuMDM0LTAuMzk1LTEuNDI5LDAgIGMtMC4zOTQsMC4zOTUtMC4zOTQsMS4wMzUsMCwxLjQzbDguOTk5LDkuMDAybDAsMGwwLDBjMC4zOTQsMC4zOTUsMS4wMzQsMC4zOTUsMS40MjgsMGw4Ljk5OS05LjAwMiAgYzAuMzk0LTAuMzk1LDAuMzk0LTEuMDM2LDAtMS40MzFDMjUuMzE5LDEwLjg4OSwyNC42NzksMTAuODg5LDI0LjI4NSwxMS4yODR6IiBmaWxsPSIjMTIxMzEzIiBpZD0iRXhwYW5kX01vcmUiLz48Zy8+PGcvPjxnLz48Zy8+PGcvPjxnLz48L3N2Zz4=" />
+					</div>
+				</section>
+				<section>
+					<h3>È proprio necessario?</h3>
+					<p style="width: 80%; margin: auto">SÌ!</p>
+					<p style="width: 80%; margin: auto">Per poter affrontare al meglio questo tipo di lavoro è
+						necessario “calarsi” nel periodo del
+						compositore, in altre parole comprendere cosa avveniva intorno a lui e nel
+						panorama<br>artistico-sonoro a sua disposizione.</p>
+					<p style="width: 80%; margin: auto">Conviene quindi non dare per scontati neanche i concetti
+						basilari e fondanti della Musica,
+						poiché nel corso del tempo hanno subito alcuni cambiamenti.</p>
+				</section>
+				<section>
+					<h3>Melodia</h3>
+					<p class="definizione-scarsa">
+						Melody, defined as pitched sounds arranged in musical time<br>in accordance with given cultural
+						conventions and
+						constraints, represents a universal human phenomenon traceable<br>to prehistoric times.<br>
+						<span style="float: right; font-size: medium; padding: 10px;"><span
+								style="text-transform: uppercase;">Ringer Alexander L.</span>, <em>Melody</em> in
+							<em>Grove Music Online</em></span>
+					</p>
+					<p class="definizione">La moderna melodia è la superficie musicale del ritmo, dell'armonia, della
+						forma e della strumentazione;[...].<br>
+						In breve, la melodia è la superficie della musica.<br>
+						<span style="float: right; font-size: medium; padding: 10px;"><span
+								style="text-transform: uppercase;">Tovey
+								D.</span>, <em>Melody</em> in
+							<em>Encyclopedia Britannica</em>, 1911. </span>
+					</p>
+				</section>
+				<section>
+					<div class="timeline">
+						<div class="container right">
+							<div class="content">
+								<h2>Presente</h2>
+							</div>
+						</div>
+						<div class="container left">
+							<div class="content">
+								<h2>XX secolo</h2>
+								<p><strong>Dibattito sulla nuova musica</strong></p>
+								<p><em>Indagare le molteplici funzioni che la melodia potrebbe svolgere, o non svolgere,
+										nella musica del nuovo secolo.</em></p>
+								<p>(Maurice Ravel: melodia come “il bel canto”;<br>
+									Arnold Schönberg: melodia di timbri (<em>Klangfarbenmelodie</em>);<br>
+									Alban Berg: melodia cantabile;<br>
+									Edgard Varèse: melodia come successione non necessariamente orizzontale;<br>
+									Ernst Kurth: melodia come movimento;<br>
+									Ferruccio Busoni: melodia come successione di intervalli;
+									Alfredo Casella: melodia come prodotto elementare dell'artigiano musicale)
+								</p>
+							</div>
+						</div>
+					</div>
+				</section>
+				<section>
+					<div class="timeline">
+						<div class="container right">
+							<div class="content">
+								<h2>1722</h2>
+								<p><strong>Jean-Philippe Rameau</strong></p>
+								<p><em>Trattato di armonia ridotto ai suoi principi naturali</em></p>
+								<p>(Equivalenza delle ottave, "basso fondamentale", rivolti degli accordi, derivazione
+									naturale dell'accordo maggiore e minore, ecc...)</p>
+							</div>
+						</div>
+						<div class="container left">
+							<div class="content">
+								<h2>1708</h2>
+								<h2>Johann Gottfried Walther</h2>
+								<p><em>Praecepta der musicalischen Composition</em></p>
+								<blockquote style="font-size: large; background: #628c77; color: white;">
+									Musica poetica o composizione musicale è una scienza matematica attraverso la quale
+									una gradevole e corretta armonia di note è scritta in modo da poter essere poi
+									cantata o suonata,
+									così da muovere propriamente un ascoltatore alla devozione divina tanto quanto ai
+									piaceri e alle delizie della mente e dell'anima.<br>
+									Il compositore [...] scrive poesie, ovvero <strong>melodie</strong>.
+								</blockquote>
+							</div>
+						</div>
+					</div>
+				</section>
+				<section>
+					<div class="timeline">
+						<div class="container right">
+							<div class="content"
+								style="background-color: rgba(252, 215, 215, 0.63); border-style: dotted;">
+								<h2 style="line-height: 2px;">1623</h2>
+								<h2 style="line-height: 2px;">Antonio Mogavero</h2>
+								<p style="line-height: 10px;"><em>"Lamentationum Jeremiae Prophetae"</em></p>
+							</div>
+						</div>
+						<div class="container margin-left">
+							<div class="content">
+								<h2>1603</h2>
+								<h2>Giovanni Maria Artusi</h2>
+								<p><em>Seconda parte dell'Artusi</em></p>
+								<blockquote style="font-size: large; background: #628c77; color: white;">
+									Et la melodia si compone di Oratione, di Rithmo, et d'Harmonia insieme così
+									dichiarata da Platone De Rep[ublica].<br>
+								</blockquote>
+							</div>
+						</div>
+						<div class="container right">
+							<div class="content">
+								<h2>IV secolo aC.</h2>
+								<h2>Plato</h2>
+								<p><em>Repubblica</em></p>
+							</div>
+						</div>
+					</div>
+				</section>
+				<section>
+					<h3>Forma</h3>
+					<p class="definizione-scarsa">The constructive or organizing element in music.<span
+							style="float: right; font-size: medium; padding: 10px;"><span
+								style="text-transform: uppercase;">Whittall A.</span>, <em>Form</em> in
+							<em>Grove Music Online</em></span></p>
+					<p class="definizione">The structure of a musical composition.<br>The term is regularly used in two
+						senses: to denote a standard<br>
+						type, or genre, and to denote the procedures in a specific work.<span
+							style="float: right; font-size: medium; padding: 10px;"><span
+								style="text-transform: uppercase;">Kirby F. E.</span>,
+							<em>Musical form</em> in
+							<em>Encyclopedia Britannica</em></span></p>
+				</section>
+				<section>
+					<div class="timeline">
+						<div class="container right">
+							<div class="content">
+								<h2>Presente</h2>
+							</div>
+						</div>
+						<div class="container left">
+							<div class="content">
+								<h2>1980-1984</h2>
+								<p><strong>Brian Ferneyhough, Franco Donatoni,<br>Gilles Deleuze, Félix
+										Guattari</strong>
+								</p>
+								<p><em>Concetto di figura</em></p>
+								<p>(un frammento dotato di una configurazione melodico-ritmica autonoma. Ne
+									risulta una concatenazione di "oggetti", nell'ottica di una conservazione
+									dell'individuale nel molteplice)</p>
+							</div>
+						</div>
+						<div class="container right">
+							<div class="content">
+								<h2>1961</h2>
+								<p><strong>Karlheinz Stockhausen</strong></p>
+								<p><em>Momentform</em></p>
+								<p>(l'articolazione della forma in una successione di brevi momenti di immediata
+									intensità)</p>
+							</div>
+						</div>
+					</div>
+				</section>
+				<section>
+					<div class="timeline">
+						<div class="container left">
+							<div class="content">
+								<h2 style="line-height: 5px;">1862</h2>
+								<h2 style="line-height: 5px;">Benedict Widmann</h2>
+								<p style="line-height: 5px;"><em>Formenlehre Der Instrumentalmusik</em></p>
+								<blockquote style="width: 90%;font-size: small; text-align: justify;">
+									La dottrina della forma si pone come compito di mostrare la formazione o
+									l'allestimento di un'opera musicale, cioè di dimostrare come l'idea, ovvero il
+									pensiero musicale, abbia acquisito una configurazione esterna artistica. La
+									morfologia analizza la genesi di un brano musicale; controlla e ricontrolla i
+									calcoli per insegnare all'allievo a riconoscere e apprezzare la bella costruzione,
+									mettendolo in condizione di esprimere le proprie idee in forme altrettanto buone.
+								</blockquote>
+							</div>
+						</div>
+						<div class="container right">
+							<div class="content"
+								style="background-color: rgba(252, 215, 215, 0.63); border-style: dotted;">
+								<h2 style="line-height: 2px;">1623</h2>
+								<h2 style="line-height: 2px;">Antonio Mogavero</h2>
+								<p style="line-height: 10px;"><em>"Lamentationum Jeremiae Prophetae"</em></p>
+							</div>
+						</div>
+						<div class="container left">
+							<div class="content">
+								<h2 style="line-height: 5px;">1612</h2>
+								<h2 style="line-height: 5px;">Lemma "Forma"</h2>
+								<p>da <em>Vocabolario degli Accademici della Crusca</em></p>
+								<p><em>[...] Quel principio intrinseco, dal quale le cose<br>ricevono l'esser loro.</em>
+								</p>
+							</div>
+						</div>
+					</div>
+				</section>
+			</section>
+
+			<section>
+				<section>
+					<h2>Spunti analitici</h2>
+					<div class="downArrow bounce">
+						<img width="40" height="40" alt=""
+							src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDMyIDMyIiBoZWlnaHQ9IjMycHgiIGlkPSLQodC70L7QuV8xIiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMycHgiIHhtbDpzcGFjZT0icHJlc2VydmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxwYXRoIGQ9Ik0yNC4yODUsMTEuMjg0TDE2LDE5LjU3MWwtOC4yODUtOC4yODhjLTAuMzk1LTAuMzk1LTEuMDM0LTAuMzk1LTEuNDI5LDAgIGMtMC4zOTQsMC4zOTUtMC4zOTQsMS4wMzUsMCwxLjQzbDguOTk5LDkuMDAybDAsMGwwLDBjMC4zOTQsMC4zOTUsMS4wMzQsMC4zOTUsMS40MjgsMGw4Ljk5OS05LjAwMiAgYzAuMzk0LTAuMzk1LDAuMzk0LTEuMDM2LDAtMS40MzFDMjUuMzE5LDEwLjg4OSwyNC42NzksMTAuODg5LDI0LjI4NSwxMS4yODR6IiBmaWxsPSIjMTIxMzEzIiBpZD0iRXhwYW5kX01vcmUiLz48Zy8+PGcvPjxnLz48Zy8+PGcvPjxnLz48L3N2Zz4=" />
+					</div>
+				</section>
+				<section>
+					<p style="display: block; width: 75%; margin: auto;">
+						A tutte le considerazioni fatte, è necessario aggiungerne una, che crea un punto di svolta:
+						l'esemplare di partitura a disposizione non presenta integralmente il testo impiegato, ma solo
+						dei termini di
+						riferimento (in genere, le parole iniziali di ciascun verso).<br>
+						Diamo uno sguardo
+					</p>
+				</section>
+				<section>
+					<img class="r-frame" style="display: block; margin-left: auto; margin-right: auto; width: 55%;"
+						src="img/an1.png">
+				</section>
+				<section>
+					<p>Alcuni elementi da puntualizzare</p>
+					<ul>
+						<li>Tipico incipit <em>fugato</em> ( <em style="color: orangered">fugato</em> ← <em>fuga</em> ←
+							<em>caccia</em> );
+						</li>
+						<li>disposizione delle voci a <em>bicinia</em> multipli;</li>
+						<li>trattamento libero dell'imitazione, favorendo un utilizzo esteso del <em
+								style="color: green">frammento</em> ritmico-melodico;</li>
+						<li>di conseguenza, presenza di vuoti divisori come <em style="color: yellow; text-shadow: 
+						-1px -1px 0 #000,  
+						1px -1px 0 #000,
+						-1px 1px 0 #000,
+						1px 1px 0 #000;">
+								marcatori</em> di start e stop.</li>
+					</ul>
+				</section>
+				<section>
+					<h3>Il concetto di marcatore</h3><br>
+					<h4 class="fragment">(dal punto di vista linguistico)</h4><br>
+					<p class="fragment">“<span style="background-color: orange;">O</span>ggi<span
+							style="background-color: yellow;"> </span>è<span style="background-color: yellow;">
+						</span>una<span style="background-color: yellow;"> </span>splendida<span
+							style="background-color: yellow;"> </span>giornata<span
+							style="background-color: orange;">.</span>”</p>
+				</section>
+				<section data-auto-animate>
+					<p style="font-size: 36pt;">L'idea di guidare la lettura del periodo mediante mercatori e divisori
+						è<br>talmente
+						potente che i maggiori trattatisti di contrappunto e fuga<br>prescrivono sempre una piccola
+						pausa alla fine di
+						qualsiasi frammento<br>(soggetto, risposta e controsoggetto), in modo da
+						evidenziare<br>ulteriormente l'apparizione
+						del frammento successivo.</p>
+					<img class="r-frame" style="display: block; margin-left: auto; margin-right: auto; width: 0%;"
+						src="img/fuga.png">
+				</section>
+				<section data-auto-animate>
+					<p style="font-size: 22pt;">L'idea di guidare la lettura del periodo mediante mercatori e divisori
+						è<br>talmente potente che i maggiori trattatisti di contrappunto e fuga<br>prescrivono sempre
+						una piccola pausa alla fine di qualsiasi frammento<br>(soggetto, risposta e controsoggetto), in
+						modo da evidenziare<br>ulteriormente l'apparizione del frammento successivo.</p>
+					<img class="r-frame" style="display: block; margin-left: auto; margin-right: auto; width: 50%;"
+						src="img/fuga.png">
+				</section>
+				<section>
+					<h3>Come interpretare (analiticamente) la presenza dei divisori?</h3>
+					<p>Tra le possibili spiegazioni:</p>
+					<ul>
+						<li class="fragment">segmentare il testo (la forma deriva dal testo);</li>
+						<li class="fragment">marcare i vari frammenti impiegati (teoria della fuga scolastica);</li>
+						<li class="fragment">indicare i punti di raddoppio strumentale.</li>
+					</ul>
+				</section>
+			</section>
+
+			<section>
+				<section>
+					<h2>Considerazioni estetiche</h2>
+					<div class="downArrow bounce">
+						<img width="40" height="40" alt=""
+							src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDMyIDMyIiBoZWlnaHQ9IjMycHgiIGlkPSLQodC70L7QuV8xIiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMycHgiIHhtbDpzcGFjZT0icHJlc2VydmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxwYXRoIGQ9Ik0yNC4yODUsMTEuMjg0TDE2LDE5LjU3MWwtOC4yODUtOC4yODhjLTAuMzk1LTAuMzk1LTEuMDM0LTAuMzk1LTEuNDI5LDAgIGMtMC4zOTQsMC4zOTUtMC4zOTQsMS4wMzUsMCwxLjQzbDguOTk5LDkuMDAybDAsMGwwLDBjMC4zOTQsMC4zOTUsMS4wMzQsMC4zOTUsMS40MjgsMGw4Ljk5OS05LjAwMiAgYzAuMzk0LTAuMzk1LDAuMzk0LTEuMDM2LDAtMS40MzFDMjUuMzE5LDEwLjg4OSwyNC42NzksMTAuODg5LDI0LjI4NSwxMS4yODR6IiBmaWxsPSIjMTIxMzEzIiBpZD0iRXhwYW5kX01vcmUiLz48Zy8+PGcvPjxnLz48Zy8+PGcvPjxnLz48L3N2Zz4=" />
+					</div>
+				</section>
+				<section>
+					Si legga con attenzione il passo testuale evidenziato:
+					<img class="r-frame" style="display: block; margin-left: auto; margin-right: auto; width: 45%;"
+						src="img/intro-sottolineato.png">
+				</section>
+				<section>
+					<div style="display: grid; column-gap: 40px; grid-template-columns: auto auto;">
+						<div style="font-size: 18pt; text-align: justify; padding: 10px;">
+							Neque vero artis dumtaxat, & harmoniae
+							specimen hie mihi edendum putavi; verum etiam Chromátum, & variarum inventionum, quibus
+							verborum vis exprimeretur, omnia ad temporis rationem fingendo, atque accommodando, ut pij
+							una cum
+							peritis animis praestantibus symphoniae lenocinijs recreare ntur. Huius suavitas ex
+							cymbalo praesertim cognosci poterit: ut
+							meo quidem iuditio canendi sunt hi threni
+							ad cymbalum grave, ac sonorum adiunctis
+							sex panduris (quas barbarum vulgus viola
+							de gamma appellat) & una theorba, aut testudine, sexque vocibus doctissimis, quae
+							sic modulentur ut instrumentorum suavitatem suis stridoribus minime obruant.
+							Mensuram porro lentam esse oportet, sacris enim neque simphoniae artifitium, neque cromatum
+							varietas percipi poterit, neque pietati, cui hoc tempore potissimus
+							studemus satisfiet.
+						</div>
+						<div style="font-size: 18pt; text-align: justify; padding: 10px;">
+							E in questa circostanza ritenni invero di produrre, non soltanto un saggio d'arte e
+							d'armonia, ma anche di soggetti e di invenzioni varie, mediante le quali fosse espressa
+							la forza delle parole, creando e accomodando ogni cosa in ragione del tempo [liturgico],
+							di modo che gli animi pii insieme con quelli esperti fossero ricreati dagli eccellenti
+							artifici della musica degli strumenti. La soavità della quale si potrà riconoscere,
+							soprattutto, grazie al clavicembalo dacché, in verità, a mio giudizio, queste
+							lamentazioni sono da eseguirsi con il clavicembalo, aggiuntovi sei viole da gamba, una
+							tiorba o un liuto, e sei voci di grande esperienza, le quali dovranno essere modulate in
+							modo tale che col loro frastuono non coprano la soavità degli strumenti musicali. Sarà
+							opportuno poi che la battuta sia portata lenta, giacché durante le cerimonie religiose
+							né l'artificio della musica degli strumenti, né la varietà dei soggetti musicali potrà
+							essere percepita, né si onora la pietà cui in questo periodo principalmente ci
+							applichiamo.
+						</div>
+					</div>
+				</section>
+				<section>
+					<h3>Punti chiave</h3>
+					<ul>
+						<li class="fragment">Perseguire una precisa e personale idea sonora.</li>
+						<li class="fragment">Se necessario, piegare le “regole”, anche capovolgendole.</li>
+						<li class="fragment">Attinenza alla “destinazione d'uso” del brano, se presente.</li>
+					</ul>
+					<img class="fragment fade-down"
+						style="display: block; margin-left: auto; margin-right: auto; width: 35%;"
+						src="img/brace-down.png">
+					<h1 class="fragment fade-up">Compositore</h1>
+				</section>
+				<section>
+					<h2>Trascrizione? Traduzione!</h2>
+					<p>Il lavoro di trascrizione eseguito dev'essere considerato alla luce di tutte le considerazioni
+						fatte fino a questo momento, ma anche sulla base di alcuni ultimi dettagli, non di poco conto,
+						riassunti di seguito.
+					</p>
+					<div class="details-container">
+						<details>
+							<summary>Organico</summary>
+							<p>Tradurre un sestetto vocale (con raddoppio di viole da gamba e clavicembalo) in un
+								organico bandistico necessita di un alleggerimento della scrittura, per il principio
+								della massima adesione all'estetica del compositore:<br>
+								 <span
+									style="text-decoration: underline; text-underline-offset: -30%;text-decoration-skip-ink: none;"><em>stridor</em></span>
+								<em>suavitas</em>
+							</p>
+						</details>
+						<details>
+							<summary>Durata</summary>
+							<p>Assenza totale del testo = libertà della forma. Si è scelto quindi di circoscrivere
+								l'ambito di azione ad una porzione iniziale che potesse comunque mostrare l'essenza
+								dell'estetica compositiva.</p>
+						</details>
+						<details>
+							<summary>Destinazione</summary>
+							<p>Riscoperta di un brano di un compositore francavillese, scritto per uno specifico
+								utilizzo nella Settimana Santa, celebrando i quattrocento anni dalla sua
+								pubblicazione.<br>
+								<span style="text-align: center !important;"><em><b>Radici comuni nel
+											Mediterraneo</b></em></span>
+							</p>
+						</details>
+					</div>
+				</section>
+			</section> -->
+
+			<section>
+				<div class="ga-container">
+					<div class="ga">
+						<h3>Thanks for your attention!</h3>
+						<img style="width:20%;" src="img/div.svg">
+					</div>
+					<div class="notizie">
+						<div class="notizie-item">
+							<div class="notizie-img">
+								<img style="width:20%;" src="img/fv.jpg">
+							</div>
+							<div class="notizie-cv">
+								<p style="font-size: 12pt; text-align: justify;"><b>Francesco Vitucci</b> è un compositore
+									di Grumo Appula (Bari).<br>
+									È diplomato in Composizione e Discipline Musicali ad Indirizzo Tecnologico presso il
+									Conservatorio “Niccolò Piccinni” di Bari.<br>Socio
+									ordinario della S.I.M.C. (Società Italiana Musica Contemporanea), i suoi lavori sono
+									eseguiti in concerti e festival di musica contemporanea, in Italia e all’estero, e sono
+									stati valutati positivamente in
+									diversi concorsi di composizione nazionali ed internazionali.
+								</p>
+							</div>
+						</div>
+						<div class="notizie-item">
+							<div class="notizie-cv">
+								<p style="font-size: 12pt; text-align: justify;"><b>Francesco Vitucci</b> è un compositore
+									di Grumo Appula (Bari).<br>
+									È diplomato in Composizione e Discipline Musicali ad Indirizzo Tecnologico presso il
+									Conservatorio “Niccolò Piccinni” di Bari.<br>Socio
+									ordinario della S.I.M.C. (Società Italiana Musica Contemporanea), i suoi lavori sono
+									eseguiti in concerti e festival di musica contemporanea, in Italia e all’estero, e sono
+									stati valutati positivamente in
+									diversi concorsi di composizione nazionali ed internazionali.
+								</p>
+							</div>
+							<div class="notizie-img">
+								<img style="width:20%;" src="img/fv.jpg">
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section data-transition="fade-in slide-out">
+				<section>
+					<h2>Bibliography</h2>
+					<div class="downArrow bounce">
+						<img width="40" height="40" alt=""
+							src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDMyIDMyIiBoZWlnaHQ9IjMycHgiIGlkPSLQodC70L7QuV8xIiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMycHgiIHhtbDpzcGFjZT0icHJlc2VydmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxwYXRoIGQ9Ik0yNC4yODUsMTEuMjg0TDE2LDE5LjU3MWwtOC4yODUtOC4yODhjLTAuMzk1LTAuMzk1LTEuMDM0LTAuMzk1LTEuNDI5LDAgIGMtMC4zOTQsMC4zOTUtMC4zOTQsMS4wMzUsMCwxLjQzbDguOTk5LDkuMDAybDAsMGwwLDBjMC4zOTQsMC4zOTUsMS4wMzQsMC4zOTUsMS40MjgsMGw4Ljk5OS05LjAwMiAgYzAuMzk0LTAuMzk1LDAuMzk0LTEuMDM2LDAtMS40MzFDMjUuMzE5LDEwLjg4OSwyNC42NzksMTAuODg5LDI0LjI4NSwxMS4yODR6IiBmaWxsPSIjMTIxMzEzIiBpZD0iRXhwYW5kX01vcmUiLz48Zy8+PGcvPjxnLz48Zy8+PGcvPjxnLz48L3N2Zz4=" />
+					</div>
+				</section>
+
+				<section>
+					<div style="text-align: left; margin: 15px; font-size: medium;">
+						<p id="footnote-1">[1] M. R. Schroeder, “Natural sounding artificial reverberation”, J. Audio Eng. Soc, vol. 10, no. 3, pp. 219–223, 1962. <a href="#/2/1">^</a></p>
+						<p id="footnote-1">[2] M. R. Schroeder and B. F. Logan, “Colorless artificial reverberation”, IRE Transactions on Audio, no. 6, pp. 209–214, 1961. <a href="#/2/1">^</a></p>
+						<p id="footnote-1">[3] D. G. Annese, F. Vitucci, A. Di Furia, F. Scagliola, and G. Silvi, “Archeotopologie: implementazione critica di memorie senza colore,” Atti del XXIV Colloquio di Informatica Musicale, 2024. <a href="#/2/2">^</a></p>
+					</div>
+				</section>
+			</section>
+
+			<div id="my-footer">
+				<div id="text">
+					<p id="auth"><b>Francesco Vitucci et al.</b></p>
+					<p id="tit"><em><b>Opening mind by opening architecture: analysis strategies</b></em></p>
+					<p id="tit"><b>7<sup>th</sup> ICSC 2024 - Vienna</b></p>
+					<p>
+						<hr />
+					</p>
+				</div>
+			</div>
+			<div id="clock">00:00:00</div>
+		</div>
+	</div>
+
+	<script src="dist/reveal.js"></script>
+	<script src="plugin/notes/notes.js"></script>
+	<script src="plugin/zoom/zoom.js"></script>
+	<script>
+		// More info about initialization & config:
+		// - https://revealjs.com/initialization/
+		// - https://revealjs.com/config/
+		Reveal.initialize({
+			width: 1280,
+			height: 720,
+			parallaxBackgroundImage: "img/bg.png",
+			parallaxBackgroundSize: "3840px 2169px",
+			parallaxBackgroundHorizontal: 300,
+			parallaxBackgroundVertical: 200,
+			controls: true,
+			progress: true,
+			center: true,
+			hash: true,
+			slideNumber: 'h.v',
+			pdfSeparateFragments: false,
+			// Learn about plugins: https://revealjs.com/plugins/
+			plugins: [RevealNotes, RevealZoom]
+		}).then( () => {
+			if(Reveal.getIndices().h === 0) { alert("Zoom with two fingers.\nNavigate with the arrows at the bottom right"); }
+		});
+	</script>
+
+	<script>
+		//richiede un elemento con id "todo"
+		var todo = true;
+		function gTodo() {
+			if (todo) {
+				on();
+			} else {
+				off();
+			}
+		}
+
+		function on() {
+			document.getElementById("todo").style.display = "block";
+		}
+
+		function off() {
+			document.getElementById("todo").style.display = "none";
+		}
+
+		document.addEventListener("keydown", event => {
+			if (event.isComposing || event.keyCode !== 90) {
+				return;
+			}
+			gTodo();
+			todo = !todo;
+		});
+	</script>
+
+	<script src="js/clock.js"></script>
+
+</body>
+
+</html>

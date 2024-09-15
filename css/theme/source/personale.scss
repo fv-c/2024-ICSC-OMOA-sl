@@ -1,0 +1,46 @@
+/**
+ * Black theme for reveal.js. This is the opposite of the 'white' theme.
+ *
+ * By Hakim El Hattab, http://hakim.se
+ */
+
+
+// Default mixins and settings -----------------
+@import "../template/mixins";
+@import "../template/settings";
+// ---------------------------------------------
+
+
+// Include theme-specific fonts
+@import url(./fonts/EBGaramond/eb-garamond.css);
+
+
+// Override theme settings (see ../template/settings.scss)
+$backgroundColor: #ffffff;
+
+$mainColor: #000000;
+$headingColor: #000000;
+
+$mainFontSize: 42px;
+$mainFont: 'EBGaramond', Times, serif;
+$headingFont: 'EBGaramond', Times, serif;
+$headingTextShadow: none;
+$headingLetterSpacing: normal;
+$headingTextTransform: none;
+$headingFontWeight: 600;
+$linkColor: #b51313;
+$linkColorHover: lighten( $linkColor, 15% );
+$selectionBackgroundColor: rgba( $linkColor, 0.75 );
+
+$heading1Size: 2.5em;
+$heading2Size: 1.6em;
+$heading3Size: 1.3em;
+$heading4Size: 1.0em;
+
+// Change text colors against light slide backgrounds
+@include dark-bg-text-color(#fff0bc);
+
+
+// Theme template ------------------------------
+@import "../template/theme";
+// ---------------------------------------------
