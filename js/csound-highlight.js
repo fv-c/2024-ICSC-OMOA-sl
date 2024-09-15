@@ -4,11 +4,11 @@ document.addEventListener("DOMContentLoaded", function() {
             name: 'Csound',
             case_insensitive: true,
             keywords: {
-                keyword: 'instr endin opcode endop if then else endif',
+                keyword: 'instr endin opcode endop if then else endif xin xout',
                 built_in: 'a b i k p f gi ga gk gi gr gb gw gt gv',
                 literal: '0dbfs abs acos aexpon allpass allpase allpassm ' +
                         'amplitude analysis and arctan atonex atan2 avgarray ' +
-                        'bessel binload bpf butterbp butterlp buttrbn'
+                        'bessel binload bpf butterbp butterlp buttrbn mpulse setksmps system_i ftgen ftprint ftsave exitnow phasor tablew schedule'
             },
             contains: [
                 // Evidenziazione dei commenti su una singola riga che iniziano con ;
@@ -30,19 +30,19 @@ document.addEventListener("DOMContentLoaded", function() {
                 //     begin: '\\bopcode\\b'
                 // },
                 // Evidenziazione del nome dell'opcode
-                {
-                    className: 'title function',
-                    begin: '\\bopcode\\b\\s+(\\w+)',
-                    end: '\\s+',
-                    returnBegin: true,
-                    contains: [
-                        {
-                            className: 'title.function',
-                            begin: '\\w+',
-                            relevance: 0
-                        }
-                    ]
-                },
+                // {
+                //     className: 'title function',
+                //     begin: '\\bopcode\\b\\s+(\\w+)',
+                //     end: '\\s+',
+                //     returnBegin: true,
+                //     contains: [
+                //         {
+                //             className: 'title.function',
+                //             begin: '\\w+',
+                //             relevance: 0
+                //         }
+                //     ]
+                // },
                 // Evidenziazione delle parole chiave (per priorità, prima delle variabili)
                 {
                     className: 'keyword',
@@ -58,10 +58,22 @@ document.addEventListener("DOMContentLoaded", function() {
                     className: 'variable control',
                     begin: '\\bk\\w*\\b'
                 },
+                // Evidenziazione delle variabili globali di inizializzazione (iniziano con 'gi' e devono essere in corsivo)
+                {
+                    className: 'variable globinitialization',
+                    begin: '\\bgi[A-Za-z0-9_]*\\b',
+                    relevance: 0
+                },
                 // Evidenziazione delle variabili di inizializzazione (iniziano con 'i' e non sono parole chiave)
                 {
                     className: 'variable initialization',
-                    begin: '\\bi(?!f\\b)[A-Za-z0-9_]*\\b'
+                    begin: '\\bi(?!f|nstr\\b)[A-Za-z0-9_]*\\b'
+                },
+                // Evidenziazione delle costanti (es. sr, kr, ksmps, nchnls, 0dbfs)
+                {
+                    className: 'constant',
+                    begin: '\\b(sr|kr|ksmps|nchnls|0dbfs)\\b',
+                    relevance: 0
                 }
             ]
         };

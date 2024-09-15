@@ -39,9 +39,10 @@
 			<section data-state="inizio" data-background-color="black" data-transition="fade-out">
 				<h4 style="font-size: 30px; margin: 10px;">Francesco Vitucci, Giuseppe Silvi, Daniele Giuseppe Annese,</h4>
 				<h4 style="font-size: 30px; margin: 10px;"> Francesco Scagliola and Anthony Di Furia</h4>
+				<h5 style="font-size: 20px; margin: 10px;"> Conservatorio di Musica “N. Piccinni” - Bari (IT)</h5>
 				<hr style="width: 50%">
-				<h3>Opening mind by opening architecture:</h3>
-				<h3>analysis strategies</h3>
+				<h2>Opening mind by opening architecture:</h2>
+				<h2>analysis strategies</h2>
 				<hr style="width: 50%">
 				<p style="font-size: 40px">7<sup>th</sup> International Csound Conference – ICSC2024</p>
 			</section>
@@ -81,14 +82,15 @@
 
 				<section>
 					<h3>About the Reverberators project (1)</h3>
-					<p style="text-align: left; margin: 20px;">The <a href="https://github.com/s-e-a-m/faust-libraries/blob/master/src/seam.schroeder.lib" target="_blank">Reverberators project</a> was born in the educational context of the “N. Piccinni” Conservatory of Bari (IT).</p>
-					<p style="text-align: left; margin: 20px;">The starting point was identified in Manfred Schroeder's literary works on the creation of artificial reverberations with qualities similar to natural ones. <a href="#/7/1">[1, 2]</a></p>
+					<p style="text-align: left; margin: 20px;">The <a href="https://github.com/s-e-a-m/faust-libraries/blob/master/src/seam.schroeder.lib" target="_blank">Reverberators project</a> was born in the educational context of the Conservatorio “N. Piccinni” of Bari (IT).</p>
+					<p style="text-align: left; margin: 20px;">The starting point was identified in Manfred Schroeder's literary works on the creation of artificial reverberations with qualities similar to natural ones. <a href="#/6/1">[1, 2]</a></p>
 				</section>
 
 				<section>
 					<h3>About the Reverberators project (2)</h3>
 					<p style="text-align: left; margin: 20px;">Those works reports reverberator's block diagrams and <b>impulse response</b> (IR).</p>
-					<p style="text-align: left; margin: 20px;">The project was therefore a path of reconstruction and conscious implementation <a href="#/7/1">[3]</a> of historical reverberators, with a strong view to their creative expansion.</p>
+					<p style="text-align: left; margin: 20px;">The project was therefore a path of reconstruction and conscious implementation <a href="#/6/1">[3]</a> of historical reverberators, with a strong view to their creative expansion.</p>
+					<p style="text-align: left; margin: 20px;">The chosen language was <b>Faust</b>. <a href="#/6/1">[4]</a></p>
 				</section>
 
 				<section>
@@ -119,6 +121,8 @@
 			<section data-transition="fade-in slide-out">
 				<section>
 					<h2>Csound porting</h2>
+					<h3 style="font-size: 14pt; font-family: monospace;"><a target="_blank" href="https://github.com/s-e-a-m/csound-libraries">https://github.com/s-e-a-m/csound-libraries</a></h3>
+					<h4 style="font-size: 12pt;">(Under construction)</h4>
 					<div class="downArrow bounce">
 						<img width="40" height="40" alt=""
 							src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDMyIDMyIiBoZWlnaHQ9IjMycHgiIGlkPSLQodC70L7QuV8xIiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMycHgiIHhtbDpzcGFjZT0icHJlc2VydmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxwYXRoIGQ9Ik0yNC4yODUsMTEuMjg0TDE2LDE5LjU3MWwtOC4yODUtOC4yODhjLTAuMzk1LTAuMzk1LTEuMDM0LTAuMzk1LTEuNDI5LDAgIGMtMC4zOTQsMC4zOTUtMC4zOTQsMS4wMzUsMCwxLjQzbDguOTk5LDkuMDAybDAsMGwwLDBjMC4zOTQsMC4zOTUsMS4wMzQsMC4zOTUsMS40MjgsMGw4Ljk5OS05LjAwMiAgYzAuMzk0LTAuMzk1LDAuMzk0LTEuMDM2LDAtMS40MzFDMjUuMzE5LDEwLjg4OSwyNC42NzksMTAuODg5LDI0LjI4NSwxMS4yODR6IiBmaWxsPSIjMTIxMzEzIiBpZD0iRXhwYW5kX01vcmUiLz48Zy8+PGcvPjxnLz48Zy8+PGcvPjxnLz48L3N2Zz4=" />
@@ -138,16 +142,141 @@
 				</section>
 
 				<section>
-					<h3>Creating the analysis tool</h3>
+					<h3>Creating an IR analysis tool for Csound</h3>
+					<pre class="csound">
+						<code data-trim data-noescape>
+							instr 1
+							setksmps 1
+							ires system_i 1, "mkdir -p PLOT"
+							iT = 1;time
+							iG = 1/ sqrt(2);gain
+							iSR = sr;sample rate
+							aDirac mpulse 1,1
+							aR = 0
+							iLenTable = 32
+							giFDL_PLOT ftgen 2, 0, iLenTable, -2, 0
+							aFDL_PLOT = FDL_SCH(aDirac, iT, iG, iSR);process to test
+							aIndex phasor sr/iLenTable
+							tablew aFDL_PLOT, aIndex * iLenTable, giFDL_PLOT
+							schedule 2, iLenTable/sr, 1
+						  endin
+						  instr 2
+							ftprint giFDL_PLOT
+							ftsave "PLOT/1FDL_PLOT.txt", 1, giFDL_PLOT
+							ires system_i 1, "wolframscript -script plot.wls"
+							exitnow
+						  endin
+						</code>
+					</pre>
 
 				</section>
 
 				<section>
+					<h3>Result</h3>
+					<pre>
+						<code data-trim data-noescape="">
+							======= TABLE 2 size: 32 values ======
+flen: 32
+lenmask: 31
+lobits: 23
+lomask: 8388607
+lodiv: 0.000000
+cvtbas: 0.000000
+cpscvt: 0.000000
+loopmode1: 0
+loopmode2: 0
+begin1: 0
+end1: 0
+begin2: 0
+end2: 0
+soundend: 0
+flenfrms: 32
+nchnls: 1
+fno: 2
+gen01args.gen01: 0.000000
+gen01args.ifilno: 0.000000
+gen01args.iskptim: 0.000000
+gen01args.iformat: 0.000000
+gen01args.channel: 0.000000
+gen01args.sample_rate: 44100.000000
+---------END OF HEADER--------------
+0.000000
+1.000000
+0.707107
+0.500000
+0.353553
+0.250000
+0.176777
+0.125000
+0.088388
+0.062500
+0.044194
+0.031250
+0.022097
+0.015625
+0.011049
+0.007812
+0.005524
+0.003906
+0.002762
+0.001953
+0.001381
+0.000977
+0.000691
+0.000488
+0.000345
+0.000244
+0.000173
+0.000122
+0.000086
+0.000061
+0.000043
+0.000031
+0.000000
+---------END OF TABLE---------------
+						</code>
+					</pre>
+				</section>
+
+				<section>
+					<h3>IR Plot</h3>
+					<h4 style="font-size: 12pt;">Using <a target="_blank" href="https://www.wolfram.com/wolframscript/">Wolframscript</a></h4>
+					<div style="background-color: white;">
+						<img src="img/fdl_plot.png">
+					</div>
+				</section>
+
+				<section>
 					<h3>Creative opening: par & seq</h3>
+					<pre class="csound">
+						<code data-trim data-noescape>
+				;--------PAR FDL--------------------------------------------------
+				opcode PAR_FDL_SCH, a, ai[]i[]iii
+					aPulse, iTfdl[], iGfdl[], iSR, iN, icnt  xin
+					icnt  =  icnt + 1
+					aFDL = FDL_SCH(aPulse, iTfdl[icnt - 1], iGfdl[icnt - 1], iSR)
+					aMix init 0
+					if icnt < iN then
+						aMix PAR_FDL_SCH aPulse, iTfdl, iGfdl, iSR, iN, icnt
+					endif
+					xout aMix + aFDL
+				endop
+				;--------SEQ APF-------------------------------------------------
+				opcode SEQ_APF_SCH, a, ai[]i[]iii
+					aPulse, iTapf[], iGapf[], iSR, iN, icnt  xin
+					icnt  =  icnt + 1
+					aAPF = APF_SCH(aPulse , iTapf[icnt - 1], iGapf[icnt - 1], iSR)
+					if icnt < iN then
+						aAPF SEQ_APF_SCH aAPF, iTapf, iGapf, iSR, iN, icnt
+					endif
+					xout aAPF
+				endop
+						</code>
+					</pre>
 				</section>
 			</section>
 
-			<section data-transition="fade-in slide-out">
+			<!-- <section data-transition="fade-in slide-out">
 				<section>
 					<h2>Repository</h2>
 					<div class="downArrow bounce">
@@ -159,7 +288,7 @@
 				<section>
 					<h3>...</h3>
 				</section>
-			</section>
+			</section> -->
 
 			<section data-transition="fade-in slide-out">
 				<section>
@@ -628,7 +757,7 @@
 						<h3>Thanks for your attention!</h3>
 						<img style="width:20%;" src="img/div.svg">
 					</div>
-					<div class="notizie">
+					<!-- <div class="notizie">
 						<div class="notizie-item">
 							<div class="notizie-img">
 								<img style="width:20%;" src="img/fv.jpg">
@@ -661,7 +790,7 @@
 								<img style="width:20%;" src="img/fv.jpg">
 							</div>
 						</div>
-					</div>
+					</div> -->
 				</div>
 			</section>
 
@@ -675,10 +804,11 @@
 				</section>
 
 				<section>
-					<div style="text-align: left; margin: 15px; font-size: medium;">
+					<div style="text-align: left; margin: 15px; font-size: 18pt;">
 						<p id="footnote-1">[1] M. R. Schroeder, “Natural sounding artificial reverberation”, J. Audio Eng. Soc, vol. 10, no. 3, pp. 219–223, 1962. <a href="#/2/1">^</a></p>
 						<p id="footnote-1">[2] M. R. Schroeder and B. F. Logan, “Colorless artificial reverberation”, IRE Transactions on Audio, no. 6, pp. 209–214, 1961. <a href="#/2/1">^</a></p>
 						<p id="footnote-1">[3] D. G. Annese, F. Vitucci, A. Di Furia, F. Scagliola, and G. Silvi, “Archeotopologie: implementazione critica di memorie senza colore,” Atti del XXIV Colloquio di Informatica Musicale, 2024. <a href="#/2/2">^</a></p>
+						<p id="footnote-1">[4] <a style="font-family: monospace;" target="_blank" href="https://faust.grame.fr/">https://faust.grame.fr/</a> <a href="#/2/2">^</a></p>
 					</div>
 				</section>
 			</section>
@@ -720,7 +850,7 @@
 			// Learn about plugins: https://revealjs.com/plugins/
 			plugins: [RevealNotes, RevealZoom]
 		}).then( () => {
-			if(Reveal.getIndices().h === 0) { alert("Zoom with two fingers.\nNavigate with the arrows at the bottom right"); }
+			if(Reveal.getIndices().h === 0) { alert("For mobile devices:\nZoom with two fingers.\nNavigate with the arrows at the bottom right"); }
 		});
 	</script>
 

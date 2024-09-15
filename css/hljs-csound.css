@@ -44,3 +44,15 @@ code.hljs{padding:3px 5px}
   color: #008fbe; /* Azzurro */
 }
 
+/* Variabili globali di inizializzazione (iniziano con 'gi') */
+.hljs-variable.globinitialization {
+  color: #008fbe; /* Azzurro */
+  font-style: italic;
+}
+
+/* Costanti (es. sr, kr, ksmps, nchnls, 0dbfs) */
+.hljs-constant {
+  color: #f3752c; /* Arancione */
+  font-weight: bold; /* Grassetto */
+}
+
