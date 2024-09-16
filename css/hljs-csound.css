@@ -50,6 +50,11 @@ code.hljs{padding:3px 5px}
   font-style: italic;
 }
 
+/* Variabili globali di inizializzazione (iniziano con 'gi') */
+.hljs-variable.string {
+  color: #ee35b3;
+}
+
 /* Costanti (es. sr, kr, ksmps, nchnls, 0dbfs) */
 .hljs-constant {
   color: #f3752c; /* Arancione */

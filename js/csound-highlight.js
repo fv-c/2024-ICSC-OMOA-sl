@@ -2,13 +2,13 @@ document.addEventListener("DOMContentLoaded", function() {
     function csoundLang(hljs) {
         return {
             name: 'Csound',
-            case_insensitive: true,
+            case_insensitive: false,
             keywords: {
                 keyword: 'instr endin opcode endop if then else endif xin xout',
                 built_in: 'a b i k p f gi ga gk gi gr gb gw gt gv',
                 literal: '0dbfs abs acos aexpon allpass allpase allpassm ' +
                         'amplitude analysis and arctan atonex atan2 avgarray ' +
-                        'bessel binload bpf butterbp butterlp buttrbn mpulse setksmps system_i ftgen ftprint ftsave exitnow phasor tablew schedule'
+                        'bessel binload bpf butterbp butterlp buttrbn mpulse setksmps system_i strcat ftgen ftprint ftsave exitnow phasor tablew schedule'
             },
             contains: [
                 // Evidenziazione dei commenti su una singola riga che iniziano con ;
@@ -68,6 +68,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 {
                     className: 'variable initialization',
                     begin: '\\bi(?!f|nstr\\b)[A-Za-z0-9_]*\\b'
+                },
+                // Evidenziazione delle stringhe (iniziano con 'S')
+                {
+                    className: 'variable string',
+                    begin: '\\bS(?!EQ)\\w*\\b',
+                    relevance: 0
                 },
                 // Evidenziazione delle costanti (es. sr, kr, ksmps, nchnls, 0dbfs)
                 {
