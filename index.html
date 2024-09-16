@@ -428,15 +428,16 @@ gen01args.sample_rate: 44100.000000
 			parallaxBackgroundImage: "img/bg.png",
 			parallaxBackgroundSize: "3840px 2169px",
 			parallaxBackgroundHorizontal: 300,
-			parallaxBackgroundVertical: 200,
+			parallaxBackgroundVertical: 150,
 			controls: true,
 			progress: true,
 			center: true,
 			hash: true,
+			touch: false,
 			slideNumber: 'h.v',
 			pdfSeparateFragments: false,
 			// Learn about plugins: https://revealjs.com/plugins/
-			plugins: [RevealNotes, RevealZoom]
+			plugins: [RevealZoom]
 		}).then( () => {
 			if(Reveal.getIndices().h === 0) { alert("For mobile devices:\nZoom with two fingers.\nNavigate with the arrows at the bottom right"); }
 		});
