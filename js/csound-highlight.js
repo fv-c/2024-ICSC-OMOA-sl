@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 built_in: 'a b i k p f gi ga gk gi gr gb gw gt gv',
                 literal: '0dbfs abs acos aexpon allpass allpase allpassm ' +
                         'amplitude analysis and arctan atonex atan2 avgarray ' +
-                        'bessel binload bpf butterbp butterlp buttrbn mpulse setksmps system_i strcat ftgen ftprint ftsave exitnow phasor tablew schedule'
+                        'bessel binload bpf butterbp butterlp buttrbn mpulse setksmps system_i strcat ftgen ftprint ftsave exitnow phasor tablew schedule sqrt'
             },
             contains: [
                 // Evidenziazione dei commenti su una singola riga che iniziano con ;
