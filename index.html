@@ -45,12 +45,27 @@
 				<h2>analysis strategies</h2>
 				<hr style="width: 50%">
 				<p style="font-size: 40px">7<sup>th</sup> International Csound Conference – ICSC2024</p>
+				<aside class="notes">
+					Good morning everyone, I am Francesco Vitucci, from the Piccinni 
+					Conservatory in Bari, Southern Italy. I am the first author 
+					of the research work I will be discussing this morning, 
+					entitled Opening Mind by Opening Architecture: Analysis 
+					Strategies. Before starting, I would like to thank the ORGANISING 
+					and PAPER REVIEW COMMITTEES for letting us join the ICSC 2024. 
+					I would also like to thank the other authors of the research work 
+					for their important contribution. Let's get started
+				  </aside>
 			</section>
 
 			<section data-transition="fade-in fade-out">
 				<p style="font-size: 18pt;"><b>View the slides on your device</b></p>
 				<div><img style="width: 35%;" src="img/qr-code.png" /></div>
 				<p style="font-family: monospace; font-size: 24pt;">https://fv-c.github.io/2024-ICSC-OMOA-sl</p>
+				<aside class="notes">
+					The slides we will use are available online at this url or by 
+					scanning the qr code. They will remain available even after 
+					the presentation.
+				</aside>
 			</section>
 
 			<!-- <section>
@@ -91,6 +106,12 @@
 					<p style="text-align: left; margin: 20px;">Those works reports reverberator's block diagrams and <b>impulse response</b> (IR).</p>
 					<p style="text-align: left; margin: 20px;">The project was therefore a path of reconstruction and conscious implementation <a href="#/6/1">[3]</a> of historical reverberators, with a strong view to their creative expansion.</p>
 					<p style="text-align: left; margin: 20px;">The chosen language was <b>Faust</b>. <a href="#/6/1">[4]</a></p>
+					<aside class="notes">
+						"reconstruction and conscious implementation" are the 
+						characteristics that we have related to the idea of ​​"open 
+						architecture", in the sense of "open to understanding", 
+						but also of shareability.
+					</aside>
 				</section>
 
 				<section>
@@ -99,7 +120,7 @@
 						<ul>
 							<li class="fragment">text-based programming language</li>
 							<li class="fragment">highest level functions are implemented using the same language<br><small>(up to the basic “primitive” components)</small></li>
-							<li class="fragment">it has tools to analyze sample-by-sample and visualize block diagrams</li>
+							<li class="fragment">it has tools to analyze IR sample-by-sample and visualize block diagrams</li>
 						</ul>
 					</div>
 				</section>
@@ -115,6 +136,14 @@
 						the analytical tool essential for an in-depth understanding 
 						of the reconstruction process.
 					</p>
+					<aside class="notes">
+						Samplerate implementations of these components allowed us 
+						to face a problem that would otherwise be impossible to 
+						discover with buffersize languages, without any sample-by-sample analitical 
+						structure. The feedback loops implementations require at 
+						least one sample to execute, feature not mentioned by 
+						Schroeder due to hardware differences with his machines.
+					</aside>
 				</section>
 			</section>
 
@@ -134,7 +163,7 @@
 						Csound has many affinities with Faust: it is a text-based 
 						system, which allows for careful analysis of the flow of 
 						operations on samples; furthermore the definition of functions 
-						(user defined opcodes) can be done using the csound language 
+						(User Defined Opcodes) can be done using the csound language 
 						itself. <br>Another detail is that the Csound language 
 						has long been an integral part of our school's teaching.
 					</p>
@@ -167,7 +196,13 @@
 						  endin
 						</code>
 					</pre>
-
+					<aside class="notes">
+						In the example a user defined opcode (FDL_SCH) is tested, 
+						which is a basic comb filter rebuilt on the Schroeder model. 
+						Of course csound also has an opcode (comb) but the aim was 
+						to compare the Schroeder one with the opcodes already available 
+						(not directly inspectable, because compiled).
+					</aside>
 				</section>
 
 				<section>
@@ -312,6 +347,21 @@ gen01args.sample_rate: 44100.000000
 				endop
 						</code>
 					</pre>
+
+					<aside class="notes">
+						Usually csound is used for the development of audio dsp 
+						circuits, but it does not natively have functions that 
+						allow to "emulate" the basic syntax for the direct composition 
+						of units. Specifically, there are no syntactic constructs 
+						dedicated to the composition in series or in parallel of 
+						components. If it is easy to create chains of a few components 
+						with the current syntax, it is not as easy to create longer 
+						and more complex compositions of circuits. The original 
+						reverberators project explored precisely the creative expansion 
+						of historical circuits, with a view to exploring the sonic 
+						potential of circuits with a high number of components in 
+						series and in parallel.
+					</aside>
 				</section>
 
 				<section>
@@ -334,7 +384,12 @@ gen01args.sample_rate: 44100.000000
 				</section>
 
 				<section>
-					<h3>...</h3>
+					<p style="text-align: left; margin: 20px;">From the work we can extrapolate two concepts:</p>
+					<ol>
+						<li class="fragment">The measurability of the system (analysis).</li>
+						<li class="fragment">The variability of response of the system if we enter input values ​​reasoned on the basis of the analytical step</li>
+					</ol>
+					<p class="fragment">Through these two principles we can build more or less complex tools, which are not only "effect" but also a playable instrument.</p>
 				</section>
 			</section>
 
@@ -437,7 +492,7 @@ gen01args.sample_rate: 44100.000000
 			slideNumber: 'h.v',
 			pdfSeparateFragments: false,
 			// Learn about plugins: https://revealjs.com/plugins/
-			plugins: [RevealZoom]
+			plugins: [RevealNotes, RevealZoom]
 		}).then( () => {
 			if(Reveal.getIndices().h === 0) { alert("For mobile devices:\nZoom with two fingers.\nNavigate with the arrows at the bottom right"); }
 		});
